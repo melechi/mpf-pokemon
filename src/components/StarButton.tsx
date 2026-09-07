@@ -5,14 +5,19 @@ type StarButtonProps = {
   disabled?: boolean
   onToggle: () => void
   label?: string
+  className?: string
 }
 
-/** A toggle button that stars/unstars, shown as a filled or outline star icon. */
+/**
+ * A toggle button that stars/unstars. State is shown by a filled gold pill +
+ * `aria-pressed` (never colour alone). A burst ring flashes on activation.
+ */
 function StarButton({
   active,
   disabled = false,
   onToggle,
-  label = 'favourite',
+  label = 'favourites',
+  className,
 }: StarButtonProps) {
   return (
     <button
@@ -23,26 +28,23 @@ function StarButton({
       aria-label={active ? `Remove from ${label}` : `Add to ${label}`}
       title={active ? `Remove from ${label}` : `Add to ${label}`}
       className={cn(
-        'inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors',
-        'focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500',
-        disabled
-          ? 'cursor-not-allowed text-slate-300'
-          : active
-            ? 'text-amber-500 hover:bg-amber-50'
-            : 'text-slate-400 hover:bg-slate-100 hover:text-amber-500',
+        'group relative grid size-11 place-items-center rounded-full bg-[#FFFDF7] shadow-[0_2px_6px_rgba(43,42,51,.2)] transition',
+        'focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-berry/35',
+        'active:scale-90 aria-pressed:bg-amber-400 aria-pressed:ring-4 aria-pressed:ring-amber-400/30',
+        disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+        className,
       )}
     >
-      <svg
-        viewBox="0 0 24 24"
-        className="h-6 w-6"
-        fill={active ? 'currentColor' : 'none'}
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinejoin="round"
+      <span
         aria-hidden="true"
+        className="text-[22px] leading-none text-stone-300 transition-colors group-aria-pressed:text-amber-950 group-aria-pressed:animate-[cc-pop_.45s_cubic-bezier(.2,.9,.3,1.4)]"
       >
-        <path d="M12 2.5l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.77l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.5z" />
-      </svg>
+        ★
+      </span>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-3.5 rounded-full border-[3px] border-amber-400 opacity-0 group-aria-pressed:animate-[cc-burst_.9s_ease-out]"
+      />
     </button>
   )
 }

@@ -24,7 +24,7 @@ function RenameControl({ groupId, name }: { groupId: string; name: string }) {
           setError(null)
           setEditing(true)
         }}
-        className="rounded border border-slate-300 px-2 py-1 text-xs text-slate-600 hover:bg-slate-50"
+        className="min-h-11 rounded-full border-2 border-line bg-white px-4 text-sm font-extrabold text-stone-600 transition hover:border-stone-400 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-berry/35"
       >
         Rename
       </button>
@@ -53,25 +53,25 @@ function RenameControl({ groupId, name }: { groupId: string; name: string }) {
           if (error) setError(null)
         }}
         className={cn(
-          'rounded border px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40',
-          error ? 'border-red-400' : 'border-slate-300',
+          'min-h-11 rounded-2xl border-2 px-3 text-base font-semibold outline-none focus-visible:border-berry focus-visible:ring-4 focus-visible:ring-berry/20',
+          error ? 'border-red-500' : 'border-line',
         )}
       />
       <button
         type="submit"
-        className="rounded bg-amber-500 px-2 py-1 text-xs font-semibold text-white hover:bg-amber-600"
+        className="min-h-11 rounded-2xl bg-berry px-4 text-sm font-extrabold text-white shadow-[0_3px_0_#A62622] transition active:translate-y-[3px] active:shadow-none"
       >
         Save
       </button>
       <button
         type="button"
         onClick={() => setEditing(false)}
-        className="rounded border border-slate-300 px-2 py-1 text-xs text-slate-600 hover:bg-slate-50"
+        className="min-h-11 rounded-2xl border-2 border-line px-4 text-sm font-extrabold text-stone-600"
       >
         Cancel
       </button>
       {error && (
-        <span role="alert" className="text-xs text-red-600">
+        <span role="alert" className="text-sm font-bold text-red-700">
           {error}
         </span>
       )}
@@ -86,14 +86,15 @@ function GroupPage() {
 
   if (!group) {
     return (
-      <div className="mx-auto max-w-6xl px-4 py-6">
+      <div className="mx-auto max-w-6xl px-4 py-5">
         <EmptyState
+          variant="no-results"
           title="Group not found"
           description="This group doesn't exist. It may have been deleted."
           action={
             <Link
               to="/collection"
-              className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-600"
+              className="min-h-12 rounded-2xl bg-berry px-6 py-3 font-extrabold text-white shadow-[0_3px_0_#A62622]"
             >
               Back to Collection
             </Link>
@@ -106,28 +107,32 @@ function GroupPage() {
   const isFavourites = group.id === FAVOURITES_ID
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6">
+    <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-5">
       <div className="flex flex-col gap-3">
         <Link
           to="/collection"
-          className="text-sm text-slate-500 hover:underline"
+          className="inline-flex min-h-11 items-center gap-2 self-start text-sm font-extrabold text-berry-ink hover:text-berry"
         >
-          ← Collection
+          ← All collections
         </Link>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <span
-              className={cn(
-                'inline-block rounded-full px-3 py-1 text-sm font-semibold capitalize',
-                colorClass(group.color),
-              )}
-            >
-              {isFavourites ? '★ Favourites' : group.name}
-            </span>
-            <span className="text-sm text-slate-400">
-              {group.members.length} Pokémon
-            </span>
-          </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <span
+            aria-hidden="true"
+            className={cn('size-5 rounded-full', colorClass(group.color))}
+          />
+          <h1 className="font-display text-3xl font-extrabold text-ink">
+            {isFavourites ? 'Favourites' : group.name}
+          </h1>
+          <span
+            className={cn(
+              'rounded-full px-3 py-1 text-xs font-extrabold',
+              isFavourites
+                ? 'bg-amber-400 text-amber-950'
+                : 'bg-stone-100 text-stone-600',
+            )}
+          >
+            {group.members.length} Pokémon
+          </span>
           {/* Rename is hidden for Favourites. */}
           {!isFavourites && (
             <RenameControl groupId={group.id} name={group.name} />
@@ -137,11 +142,12 @@ function GroupPage() {
 
       {group.members.length === 0 ? (
         <EmptyState
-          title="No Pokémon here yet"
+          variant="empty"
+          title="This group is empty"
           description={
             isFavourites
               ? 'Star some Pokémon on the Browse page to add them here.'
-              : 'Add Pokémon to this group from the Browse page.'
+              : 'Head to Browse and tap “+ Add to group”.'
           }
         />
       ) : (

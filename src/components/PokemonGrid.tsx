@@ -12,19 +12,20 @@ type PokemonGridProps =
   | { variant: 'group'; groupId: string; members: PokemonSummary[] }
 
 const GRID_CLASS =
-  'grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6'
+  'grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6'
 
 /** Responsive grid of PokemonCards for either the browse or a group context. */
 function PokemonGrid(props: PokemonGridProps) {
   if (props.variant === 'group') {
     return (
       <div className={GRID_CLASS}>
-        {props.members.map((m) => (
+        {props.members.map((m, i) => (
           <PokemonCard
             key={m.id}
             variant="group"
             groupId={props.groupId}
             summary={m}
+            index={i}
           />
         ))}
       </div>
@@ -45,8 +46,8 @@ function PokemonGrid(props: PokemonGridProps) {
 
   return (
     <div className={GRID_CLASS}>
-      {items.map((item) => (
-        <PokemonCard key={item.id} item={item} />
+      {items.map((item, i) => (
+        <PokemonCard key={item.id} item={item} index={i} />
       ))}
     </div>
   )

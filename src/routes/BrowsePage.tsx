@@ -47,18 +47,20 @@ function BrowsePage() {
   )
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6">
+    <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5">
       <SearchBar query={query} onQueryChange={handleQueryChange} />
 
       {isError ? (
         <EmptyState
-          title="Couldn't load Pokémon"
-          description="Something went wrong while fetching the Pokédex."
+          variant="error"
+          role="alert"
+          title="Oops — the net slipped!"
+          description="We couldn't reach the Pokémon library. Let's try that again."
           action={
             <button
               type="button"
               onClick={() => refetch()}
-              className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="min-h-12 rounded-2xl bg-berry px-6 font-extrabold text-white shadow-[0_3px_0_#A62622] transition active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-berry/35"
             >
               Retry
             </button>
@@ -68,16 +70,32 @@ function BrowsePage() {
         <PokemonGrid items={[]} isLoading skeletonCount={pageSize} />
       ) : total === 0 ? (
         <EmptyState
-          title="No Pokémon found"
+          variant="no-results"
+          title={
+            query.trim()
+              ? `No Pokémon called “${query.trim()}”`
+              : 'No Pokémon found'
+          }
           description={
             query.trim()
-              ? `Nothing matches “${query.trim()}”. Try a different name.`
-              : 'The Pokédex is empty.'
+              ? 'Check the spelling, or try a shorter word.'
+              : 'The Pokémon library is empty.'
+          }
+          action={
+            query.trim() ? (
+              <button
+                type="button"
+                onClick={() => handleQueryChange('')}
+                className="min-h-12 rounded-2xl border-2 border-line bg-white px-6 font-extrabold text-stone-600 transition hover:border-stone-400 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-berry/35"
+              >
+                Clear search
+              </button>
+            ) : undefined
           }
         />
       ) : (
         <>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm font-bold text-stone-500">
             {total} Pokémon{query.trim() ? ` matching “${query.trim()}”` : ''}
           </p>
           <PokemonGrid items={items} />

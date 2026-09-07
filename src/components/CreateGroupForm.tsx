@@ -25,38 +25,45 @@ function CreateGroupForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-1" noValidate>
-      <div className="flex gap-2">
-        <div className="flex-1">
-          <label htmlFor="new-group-name" className="sr-only">
-            New group name
-          </label>
-          <input
-            id="new-group-name"
-            type="text"
-            value={name}
-            placeholder="New group name…"
-            aria-invalid={error !== null}
-            aria-describedby={error ? 'new-group-error' : undefined}
-            onChange={(e) => {
-              setName(e.target.value)
-              if (error) setError(null)
-            }}
-            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-800 placeholder:text-slate-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/40 aria-[invalid=true]:border-red-400"
-          />
-        </div>
-        <button
-          type="submit"
-          className="rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
-        >
-          Create
-        </button>
-      </div>
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="flex flex-col gap-2.5 rounded-3xl bg-white p-4 shadow-[0_2px_0_rgba(43,42,51,.06)]"
+    >
+      <b className="font-display text-lg font-bold text-ink">
+        Make a new group
+      </b>
+      <label htmlFor="new-group-name" className="sr-only">
+        New group name
+      </label>
+      <input
+        id="new-group-name"
+        type="text"
+        value={name}
+        placeholder="Team name…"
+        aria-invalid={error !== null}
+        aria-describedby={error ? 'new-group-error' : undefined}
+        onChange={(e) => {
+          setName(e.target.value)
+          if (error) setError(null)
+        }}
+        className="min-h-12 rounded-2xl border-2 border-line bg-[#FFFDF7] px-4 text-base font-semibold text-ink outline-none placeholder:text-stone-500 focus-visible:border-berry focus-visible:ring-4 focus-visible:ring-berry/20 aria-[invalid=true]:border-red-500"
+      />
       {error && (
-        <p id="new-group-error" role="alert" className="text-xs text-red-600">
+        <p
+          id="new-group-error"
+          role="alert"
+          className="text-sm font-bold text-red-700"
+        >
           {error}
         </p>
       )}
+      <button
+        type="submit"
+        className="min-h-12 rounded-2xl bg-berry font-extrabold text-white shadow-[0_3px_0_#A62622] transition active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-berry/35"
+      >
+        Create group
+      </button>
     </form>
   )
 }

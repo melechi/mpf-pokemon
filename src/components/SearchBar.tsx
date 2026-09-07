@@ -31,16 +31,22 @@ function SearchBar({ query, onQueryChange, debounceMs = 300 }: SearchBarProps) {
       <label htmlFor="pokemon-search" className="sr-only">
         Search Pokémon by name
       </label>
-      <input
-        id="pokemon-search"
-        type="search"
-        inputMode="search"
-        autoComplete="off"
-        placeholder="Search Pokémon by name…"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-slate-800 shadow-sm placeholder:text-slate-400 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/40"
-      />
+      <div className="relative">
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 rounded-full border-[3px] border-stone-400"
+        />
+        <input
+          id="pokemon-search"
+          type="search"
+          inputMode="search"
+          autoComplete="off"
+          placeholder="Search Pokémon…"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className="min-h-12 w-full rounded-full border-2 border-line bg-white pr-5 pl-11 text-base font-semibold text-ink shadow-[0_2px_0_rgba(43,42,51,.05)] outline-none placeholder:font-semibold placeholder:text-stone-500 focus-visible:border-berry focus-visible:ring-4 focus-visible:ring-berry/20"
+        />
+      </div>
     </form>
   )
 }

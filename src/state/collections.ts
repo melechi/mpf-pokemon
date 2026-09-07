@@ -140,6 +140,13 @@ export function groupIdsContaining(
 }
 
 // ---------------------------------------------------------------------------
+// Ephemeral UI state
+// ---------------------------------------------------------------------------
+
+/** Pokémon id of the browse card whose GroupPicker is open (only one at a time). */
+export const openPickerIdAtom = atom<number | null>(null)
+
+// ---------------------------------------------------------------------------
 // Derived read atoms
 // ---------------------------------------------------------------------------
 

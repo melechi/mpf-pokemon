@@ -10,13 +10,10 @@ function CollectionPage() {
   const hasUserGroups = groups.some((g) => g.id !== FAVOURITES_ID)
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-xl font-bold text-slate-800">Collection</h1>
-        <p className="text-sm text-slate-500">
-          Favourites plus any groups you create.
-        </p>
-      </div>
+    <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-5">
+      <h1 className="font-display text-3xl font-extrabold text-ink">
+        My collections
+      </h1>
 
       <CreateGroupForm />
 
@@ -24,8 +21,9 @@ function CollectionPage() {
 
       {!hasUserGroups && (
         <EmptyState
+          variant="no-groups"
           title="No groups yet"
-          description="Create a group above, then add Pokémon to it from the Browse page."
+          description="Name a team above and start sorting your Pokémon."
         />
       )}
     </div>

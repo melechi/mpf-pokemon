@@ -1,5 +1,3 @@
-import { cn } from '@/lib/cn'
-
 type PaginationProps = {
   page: number
   pageCount: number
@@ -7,7 +5,7 @@ type PaginationProps = {
 }
 
 const BTN =
-  'rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 disabled:cursor-not-allowed disabled:opacity-40'
+  'min-h-12 min-w-14 rounded-[18px] bg-berry px-4 font-extrabold text-white shadow-[0_3px_0_#A62622] transition active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-berry/35 disabled:cursor-not-allowed disabled:bg-white disabled:text-stone-300 disabled:shadow-[0_2px_0_rgba(43,42,51,.06)] disabled:active:translate-y-0'
 
 /** Previous / next pager with a "Page X of Y" indicator. */
 function Pagination({ page, pageCount, onPageChange }: PaginationProps) {
@@ -17,28 +15,31 @@ function Pagination({ page, pageCount, onPageChange }: PaginationProps) {
   return (
     <nav
       aria-label="Pagination"
-      className="flex items-center justify-center gap-4 py-2"
+      className="flex items-center justify-center gap-3 pt-1"
     >
       <button
         type="button"
-        className={cn(BTN)}
+        className={BTN}
         onClick={() => onPageChange(page - 1)}
         disabled={atStart}
         aria-label="Previous page"
       >
-        ← Prev
+        Prev
       </button>
-      <span className="text-sm text-slate-600" aria-live="polite">
-        Page <span className="font-semibold">{page}</span> of {pageCount}
+      <span
+        className="font-display text-base font-bold text-zinc-700"
+        aria-live="polite"
+      >
+        Page {page} of {pageCount}
       </span>
       <button
         type="button"
-        className={cn(BTN)}
+        className={BTN}
         onClick={() => onPageChange(page + 1)}
         disabled={atEnd}
         aria-label="Next page"
       >
-        Next →
+        Next
       </button>
     </nav>
   )

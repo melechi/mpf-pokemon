@@ -6,7 +6,7 @@ function TypePill({ type }: { type: string }) {
   return (
     <span
       className={cn(
-        'inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize',
+        'inline-block rounded-full px-3 py-1.5 text-xs font-extrabold capitalize shadow-[0_2px_0_rgba(0,0,0,.12)] animate-[cc-wiggle_.3s_ease-out_both]',
         typeClass(type),
       )}
     >
