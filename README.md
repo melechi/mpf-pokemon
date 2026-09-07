@@ -111,3 +111,10 @@ UserData carries a version field so a future migration has something to branch o
 ### Additional Notes
 
 Note that when I ran the spec through Claude Code (Using my preferred model Opus 4.8), some ambiguity was found and correctly prompted for. I have chosen to leave the spec unchanged as it correctly demonstraits the agent following the insturctions.
+
+
+## BONUS ROUND
+
+Checkout the design branch and run it with the same instructions as above.
+
+Or browse directly to the hosted version of it here: https://mpf-pokemon-git-design-p3das-projects.vercel.app/
