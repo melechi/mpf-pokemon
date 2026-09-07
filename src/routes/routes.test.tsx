@@ -50,15 +50,20 @@ describe('routes', () => {
     expect(screen.getByRole('searchbox')).toBeInTheDocument()
   })
 
-  it('renders the collection placeholder at /collection', () => {
+  it('renders the collection page at /collection', () => {
     renderAt('/collection')
-    expect(screen.getByText(/Collection \(placeholder\)/i)).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: /Collection/i }),
+    ).toBeInTheDocument()
   })
 
-  it('renders the group placeholder at /collection/:groupId', () => {
+  it('renders a known group at /collection/:groupId', () => {
     renderAt('/collection/favourites')
-    expect(
-      screen.getByText(/Group favourites \(placeholder\)/i),
-    ).toBeInTheDocument()
+    expect(screen.getByText(/Favourites/i)).toBeInTheDocument()
+  })
+
+  it('renders a not-found state for an unknown group id', () => {
+    renderAt('/collection/does-not-exist')
+    expect(screen.getByText(/Group not found/i)).toBeInTheDocument()
   })
 })

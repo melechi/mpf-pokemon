@@ -128,6 +128,17 @@ export function renameGroup(
   }
 }
 
+/** Ids of the groups (in groupOrder) that contain the given Pokémon. */
+export function groupIdsContaining(
+  data: UserData,
+  pokemonId: number,
+): string[] {
+  return data.groupOrder.filter((id) => {
+    const group = data.groups[id]
+    return group !== undefined && group.members.some((m) => m.id === pokemonId)
+  })
+}
+
 // ---------------------------------------------------------------------------
 // Derived read atoms
 // ---------------------------------------------------------------------------
@@ -152,10 +163,9 @@ export const favouritesAtom = atom((get) =>
 export const addToGroupAtom = atom(
   null,
   (get, set, payload: { groupId: string; summary: PokemonSummary }) => {
-    set(
-      userDataAtom,
-      addToGroup(get(userDataAtom), payload.groupId, payload.summary),
-    )
+    // Stamp addedAt per membership at the moment of adding.
+    const summary = { ...payload.summary, addedAt: Date.now() }
+    set(userDataAtom, addToGroup(get(userDataAtom), payload.groupId, summary))
   },
 )
 

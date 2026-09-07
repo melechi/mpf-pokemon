@@ -3,6 +3,7 @@ import {
   addToGroup,
   createGroup,
   deleteGroup,
+  groupIdsContaining,
   removeFromGroup,
   renameGroup,
   toggleFavourite,
@@ -81,6 +82,22 @@ describe('deleteGroup / renameGroup', () => {
     expect(() =>
       renameGroup(defaultUserData(0), FAVOURITES_ID, 'Nope'),
     ).toThrow()
+  })
+})
+
+describe('groupIdsContaining', () => {
+  it('lists (in order) the groups that contain a Pokémon', () => {
+    let data = createGroup(defaultUserData(0), {
+      id: 'g1',
+      name: 'Team',
+      now: 0,
+    })
+    data = createGroup(data, { id: 'g2', name: 'Bench', now: 0 })
+    data = addToGroup(data, FAVOURITES_ID, summary(25, 'pikachu'))
+    data = addToGroup(data, 'g2', summary(25, 'pikachu'))
+
+    expect(groupIdsContaining(data, 25)).toEqual([FAVOURITES_ID, 'g2'])
+    expect(groupIdsContaining(data, 999)).toEqual([])
   })
 })
 
