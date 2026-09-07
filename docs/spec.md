@@ -430,6 +430,7 @@ Renaming happens here for normal groups, hidden for Favourites.
 
 Assigning a Pokémon to a group.
 Lists all groups with membership state from groupIdsContaining, so the user can see and toggle membership across several groups at once.
+Favourites group should be ignored here.
 Reachable from PokemonCard on the browse page. It needs the summary, so it follows the same rule as the star: available once detail has loaded.
 
 ### Reused
