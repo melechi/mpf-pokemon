@@ -39,3 +39,36 @@ export const COLOR_CLASSES: Record<ColorToken, string> = {
 export function colorClass(token: string): string {
   return COLOR_CLASSES[token as ColorToken] ?? COLOR_CLASSES[FAVOURITES_COLOR]
 }
+
+// ---------------------------------------------------------------------------
+// Pokémon type colours. Same static-class discipline: full class strings only,
+// never interpolated, so the Tailwind scanner can see every one.
+// ---------------------------------------------------------------------------
+
+export const TYPE_COLORS: Record<string, string> = {
+  normal: 'bg-neutral-400 text-white',
+  fire: 'bg-red-500 text-white',
+  water: 'bg-blue-500 text-white',
+  electric: 'bg-yellow-400 text-black',
+  grass: 'bg-green-600 text-white',
+  ice: 'bg-cyan-300 text-black',
+  fighting: 'bg-orange-700 text-white',
+  poison: 'bg-purple-600 text-white',
+  ground: 'bg-amber-600 text-white',
+  flying: 'bg-indigo-400 text-white',
+  psychic: 'bg-pink-500 text-white',
+  bug: 'bg-lime-600 text-white',
+  rock: 'bg-stone-500 text-white',
+  ghost: 'bg-violet-700 text-white',
+  dragon: 'bg-indigo-700 text-white',
+  dark: 'bg-neutral-700 text-white',
+  steel: 'bg-slate-400 text-white',
+  fairy: 'bg-pink-300 text-black',
+}
+
+const TYPE_FALLBACK = 'bg-slate-200 text-slate-800'
+
+/** Look up the complete Tailwind class string for a Pokémon type. */
+export function typeClass(type: string): string {
+  return TYPE_COLORS[type.toLowerCase()] ?? TYPE_FALLBACK
+}
